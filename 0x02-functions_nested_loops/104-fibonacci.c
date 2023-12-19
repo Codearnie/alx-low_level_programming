@@ -1,27 +1,61 @@
 #include <stdio.h>
 /**
- * main - finds and prints the sum of the even-valued terms
+ * numLength - returns the lenth of string
+ * @num : operand number
+ * Return: number of digits
+ */
+
+int numLength(int num)
+{
+	int length = 0;
+
+	if (!num)
+	{
+		return (1);
+	}
+
+	while (num)
+	{
+		num = num / 10;
+		length += 1;
+	}
+
+	return (length);
+}
+/**
+ * main - prints the first 98 fibonaci sequences
  * Return: 0 (Success)
  */
 
 int main(void)
 {
-	int i;
-	unsigned long int j, k, ch, sum;
+	unsigned long f1 = 1, f2 = 2, tmp, mx = 100000000, f1o = 0, f2o = 0, tmpo = 0;
+	short int i = 1, initial0s;
 
-	j = 1;
-	k = 2;
-	sum = 0;
-	for (i = 1; i <= 33; ++i)
+	while (i <= 98)
 	{
-		if (j < 4000000 && (j % 2) == 0)
+		if (f1o > 0)
+			printf("%lu", f1o);
+		initial0s = numLength(mx) - 1 - numLength(f1);
+		while (f1o > 0 && initial0s > 0)
 		{
-			sum = sum + j;
+			printf("%i", 0);
+			initial0s--;
 		}
-		ch = j + k;
-		j = k;
-		k = ch;
+		printf("%lu", f1);
+
+		tmp = (f1 + f2) % mx;
+		tmpo = f1o + f2o + (f1 + f2) / mx;
+		f1 = f2;
+		f1o = f2o;
+		f2 = tmp;
+		f2o = tmpo;
+
+		if (i != 98)
+			printf(", ");
+		else
+			printf("\n");
+		i++;
 	}
-	printf("%lu\n", sum);
 	return (0);
 }
