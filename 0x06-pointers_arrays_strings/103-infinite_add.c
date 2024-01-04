@@ -1,50 +1,75 @@
 #include "main.h"
 /**
- * infinite_add: function that adds two stored nums in strings to a buffer
- * @n1: first num to be addded
- * @n2: second num to be added
- * @r: store result
- * @size_r: size of buffer
- * Return: pointer to result
+ * rev_string - reverse array
+ * @n: integer params
+ * Return: 0
+ */
+
+void rev_string(char *n)
+{
+	int x = 0, y = 0;
+	char tem;
+
+	while ((*n + x) != '\0')
+	{
+		x++;
+	}
+	x--;
+
+	for (y = 0; y < x; y++, x--)
+	{
+		tem = *(n + y);
+		*(n + y) = *(n + x);
+		*(n + x) = tem;
+	}
+}
+/**
+ * infinite_add - adds 2 nums together
+ * @n1: string of first num to add
+ * @n2: string of second num to add
+ * @r: pointer to buffer
+ * @size_r: buffer size
+ * Return: pointer to calling function
  */
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-}
+	int overflow = 0, i = 0, j = 0, digits = 0;
+	int val1 = 0, val2 = 0, temp_tot = 0;
 
-/**
- * add_strings: adds nums stored in two strings
- * @n1: string with first num to add
- * @n2: string with second num to add
- * @r: the buffer to store the result
- * @r_index: current index of the buffer
- * Return: pointer to result if r can store the sum or else return 0
- */
-
-char *add_strings(char *n1, char *n2, char *r, int r_index)
-{
-	int num;
-	int ten = 0;
-
-	for (; *n1 && *n2; n1--, n2--, r_index--)
+	while (*(n1 + i) != '\0')
+		i++;
+	while (*(n2 + j) != '\0')
+		j++;
+	i--;
+	j--;
+	if (j >= size_r || i >= size_r)
+		return (0);
+	while (j >= 0 || i >= 0 || overflow == 1)
 	{
-		num = (*n1 - '0') + (*n2 - '0');
-		num += ten;
-		*(r + r_index) = (num % 10) + '0';
-		ten = num/10;
+		if (i < 0)
+			val1 = 0;
+		else
+			val1 = *(n1 + i) - '0';
+		if (j < 0)
+			val2 = 0;
+		else
+			val2 = *(n2 + j) - '0';
+		temp_tot = val1 + val2 + overflow;
+		if (temp_tot >= 10)
+			overflow = 1;
+		else
+			overflow = 0;
+		if (digits >= (size_r - 1))
+			return (0);
+		*(r + digits) = (temp_tot % 10) + '0';
+		digits++;
+		j--;
+		i--;
 	}
-
-	for (; *n1; n1--; r_index++)
-	{
-		num = *(n1 = '0') + ten;
-		*(r + r_index) = (num % 10) + '0';
-		ten = num/10;
-	}
-
-	for (; *n2; n2--; r_index--)
-	{
-		num = (*n2 - '0') + ten;
-		*(r + r_index) = (num % 10) + '0';
-		ten = num/10;
-	}
+	if (digits == size_r)
+		return (0);
+	*(r + digits) = '\0';
+	rev_string(r);
+	return (r);
 }
