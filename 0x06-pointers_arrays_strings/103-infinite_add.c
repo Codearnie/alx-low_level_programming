@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * rev_string - reverse array
  * @n: integer params
@@ -7,26 +8,28 @@
 
 void rev_string(char *n)
 {
-	int x = 0, y = 0;
-	char tem;
+	int i = 0;
+	int j = 0;
+	char temp;
 
-	while ((*n + x) != '\0')
+	while (*(n + i) != '\0')
 	{
-		x++;
+		i++;
 	}
-	x--;
+	i--;
 
-	for (y = 0; y < x; y++, x--)
+	for (j = 0; j < i; j++, i--)
 	{
-		tem = *(n + y);
-		*(n + y) = *(n + x);
-		*(n + x) = tem;
+		temp = *(n + j);
+		*(n + j) = *(n + i);
+		*(n + i) = temp;
 	}
 }
+
 /**
- * infinite_add - adds 2 nums together
- * @n1: string of first num to add
- * @n2: string of second num to add
+ * infinite_add - add 2 numbers together
+ * @n1: text representation of 1st number to add
+ * @n2: text representation of 2nd number to add
  * @r: pointer to buffer
  * @size_r: buffer size
  * Return: pointer to calling function
